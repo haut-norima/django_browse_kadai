@@ -13,11 +13,10 @@
 docker compose up --build
 docker compose exec web python manage.py migrate  # データベースマイグレーション
 docker compose exec web python manage.py createsuperuser  # 新スーパーユーザー作成
-id: root
-password: 1234567890
-など。
-
 ```
+id: root  
+password: 1234567890  
+など。
 
 2. 起動確認
 
