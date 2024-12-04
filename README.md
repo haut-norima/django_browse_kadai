@@ -10,6 +10,7 @@
 1. dockerを立ち上げてdjangoのマイグレーションを行う
 
 ```bash
+cd docker/
 docker compose up --build
 docker compose exec web python manage.py migrate  # データベースマイグレーション
 docker compose exec web python manage.py createsuperuser  # 新スーパーユーザー作成
