@@ -1,20 +1,16 @@
-# Pythonイメージをベースにする
-FROM python:3.10-slim
+# Base image
+FROM python:3.10
 
-# 作業ディレクトリを設定
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set working directory
 WORKDIR /app
 
-# 依存関係ファイルをコピー
-COPY docker/requirements.txt /app/
-
-# 依存関係をインストール
+# Install dependencies
+COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# プロジェクトディレクトリをボリュームにマウント
-VOLUME ["/app"]
-
-# アプリケーションコードをコピー（ここでは初期状態ですので実際のディレクトリ構成を考慮）
+# Copy project code
 COPY . /app/
-
-# Djangoサーバーの起動時コマンド
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

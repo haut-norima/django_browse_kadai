@@ -1,0 +1,36 @@
+version: '3.8'
+
+name: django_browse_kadai
+
+services:
+  web:
+    build: .
+    command: >
+      bash -c "django-admin startproject search_project . &&
+               python manage.py startapp search_app &&
+               python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DJANGO_DB_ENGINE: django.db.backends.postgresql
+      DJANGO_DB_NAME: search_db
+      DJANGO_DB_USER: search_user
+      DJANGO_DB_PASSWORD: password123
+      DJANGO_DB_HOST: db
+      DJANGO_DB_PORT: 5432
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: search_db
+      POSTGRES_USER: search_user
+      POSTGRES_PASSWORD: password123
+
+volumes:
+  postgres_data:
